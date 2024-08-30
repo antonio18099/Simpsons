@@ -2,7 +2,8 @@ const url = "https://thesimpsonsquoteapi.glitch.me/quotes"
 const containerCards = document.querySelector(".cards-container")
 const btnGenerateCard = document.querySelector("#generate-card")
 const btnGenerateMultiple = document.querySelector("#generate-multiple")
-
+//const para el buscador 
+const inputCharacter = document.querySelector('#input-character');
 
 const getCharacter =async () =>{
 
@@ -53,3 +54,33 @@ const makeCharacter = (myCharacter) => {
 
 btnGenerateCard.addEventListener("click",getCharacter)
 btnGenerateMultiple.addEventListener("click",generateCards)
+
+
+//prueba de buscador 
+
+// eento para buscar 
+inputCharacter.addEventListener('input', () => {
+    const searchText = inputCharacter.value.toLowerCase(); 
+    filterCards(searchText); 
+});
+
+//filtro
+function filterCards(searchText) {
+    const cards = document.querySelectorAll('.card'); 
+    
+    // Filtrar con filtreer
+    const filteredCards = Array.from(cards).filter(card => {
+        const characterName = card.querySelector('h3').textContent.toLowerCase(); 
+        return characterName.includes(searchText);
+    });
+    
+    // Muestrar cards 
+    cards.forEach(card => {
+        if (filteredCards.includes(card)) {
+            card.style.display = 'flex' 
+        } else {
+            card.style.display = "none"
+        }
+    })
+    
+}
